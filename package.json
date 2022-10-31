@@ -9,10 +9,12 @@
   },
   "private": true,
   "dependencies": {
+    "@react-three/fiber": "^8.9.0",
     "core-js": "^3.6.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "regenerator-runtime": "0.13.7",
+    "three": "^0.146.0",
     "tslib": "^2.3.0"
   },
   "devDependencies": {
