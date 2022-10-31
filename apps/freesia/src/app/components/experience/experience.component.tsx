@@ -1,9 +1,11 @@
 import { Fragment, useRef } from 'react';
-import { ThreeElements, useFrame } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
+import CustomObject from '../custom-object/custom-object.component';
+import { Mesh } from 'three';
 
 const Experience = () => {
-  const cubeRef = useRef<ThreeElements['mesh']>(null);
+  const cubeRef = useRef<Mesh>(null);
 
   useFrame((state, delta) => {
     if (!cubeRef.current) throw Error('cubeRef is not assigned');
@@ -13,8 +15,8 @@ const Experience = () => {
   return (
     <Fragment>
       <OrbitControls />
-      <directionalLight position={[1, 2, 3]} intesity={1.5} />
-      <ambientLight intesity={0.3} />
+      <directionalLight position={[1, 2, 3]} intensity={1.5} />
+      <ambientLight intensity={0.3} />
 
       <mesh ref={cubeRef} position={[2, 0, 0]}>
         <boxGeometry />
@@ -30,6 +32,8 @@ const Experience = () => {
         <planeGeometry />
         <meshStandardMaterial color="greenyellow" />
       </mesh>
+
+      <CustomObject />
     </Fragment>
   );
 };
