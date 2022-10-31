@@ -5,7 +5,7 @@ import CustomObject from '../custom-object/custom-object.component';
 import { Mesh } from 'three';
 
 const Experience = () => {
-  const cubeRef = useRef<Mesh>(null);
+  const cubeRef = useRef<Mesh | null>(null);
 
   useFrame((state, delta) => {
     if (!cubeRef.current) throw Error('cubeRef is not assigned');
