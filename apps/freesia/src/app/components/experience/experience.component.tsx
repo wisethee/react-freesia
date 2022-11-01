@@ -1,16 +1,9 @@
 import { Fragment, useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import CustomObject from '../custom-object/custom-object.component';
 import { Mesh } from 'three';
 
 const Experience = () => {
   const cubeRef = useRef<Mesh | null>(null);
-
-  useFrame((state, delta) => {
-    if (!cubeRef.current) throw Error('cubeRef is not assigned');
-    cubeRef.current.rotation.y += delta;
-  });
 
   return (
     <Fragment>
@@ -32,8 +25,6 @@ const Experience = () => {
         <planeGeometry />
         <meshStandardMaterial color="greenyellow" />
       </mesh>
-
-      <CustomObject />
     </Fragment>
   );
 };
