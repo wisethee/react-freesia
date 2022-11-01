@@ -15,7 +15,6 @@ body {
   line-height: 24px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
-  background-color: lightblue;
 }
 
 html,
@@ -24,4 +23,15 @@ body,
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+}
+
+.text div {
+  padding: 4px 12px;
+  background-color: rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.03em;
+  min-width: 138px;
+  user-select: none;
 }
