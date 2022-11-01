@@ -1,5 +1,5 @@
 import { Fragment, useRef } from 'react';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, PivotControls } from '@react-three/drei';
 import { Mesh } from 'three';
 
 const Experience = () => {
@@ -7,19 +7,33 @@ const Experience = () => {
 
   return (
     <Fragment>
-      <OrbitControls />
+      <OrbitControls makeDefault />
       <directionalLight position={[1, 2, 3]} intensity={1.5} />
       <ambientLight intensity={0.3} />
 
-      <mesh ref={cubeRef} position={[2, 0, 0]}>
-        <boxGeometry />
-        <meshStandardMaterial color="mediumpurple" />
-      </mesh>
+      <PivotControls
+        anchor={[0, 0, 0]}
+        depthTest={false}
+        lineWidth={3}
+        scale={0.5}
+      >
+        <mesh ref={cubeRef} position={[2, 0, 0]}>
+          <boxGeometry />
+          <meshStandardMaterial color="mediumpurple" />
+        </mesh>
+      </PivotControls>
 
-      <mesh position={[-2, 0, 0]}>
-        <sphereGeometry />
-        <meshStandardMaterial color="orange" />
-      </mesh>
+      <PivotControls
+        anchor={[0, 0, 0]}
+        depthTest={false}
+        lineWidth={3}
+        scale={0.5}
+      >
+        <mesh position={[-2, 0, 0]}>
+          <sphereGeometry />
+          <meshStandardMaterial color="orange" />
+        </mesh>
+      </PivotControls>
 
       <mesh scale={9} rotation={[-Math.PI * 0.5, 0, 0]} position={[0, -1, 0]}>
         <planeGeometry />
