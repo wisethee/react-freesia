@@ -9,6 +9,7 @@ import {
 } from '@react-three/drei';
 import { Mesh } from 'three';
 import { useControls } from 'leva';
+import { Perf } from 'r3f-perf';
 
 const Experience = () => {
   const cubeRef = useRef<Mesh | null>(null);
@@ -32,6 +33,7 @@ const Experience = () => {
 
   return (
     <Fragment>
+      <Perf position="bottom-right" />
       <OrbitControls makeDefault />
       <directionalLight position={[1, 2, 3]} intensity={1.5} />
       <ambientLight intensity={0.3} />
