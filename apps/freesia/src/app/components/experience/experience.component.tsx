@@ -8,10 +8,27 @@ import {
   MeshReflectorMaterial,
 } from '@react-three/drei';
 import { Mesh } from 'three';
+import { useControls } from 'leva';
 
 const Experience = () => {
   const cubeRef = useRef<Mesh | null>(null);
   const sphereRef = useRef<Mesh | null>(null);
+
+  const { position, color } = useControls('Sphere', {
+    position: {
+      value: { x: -2, y: 0, z: 0 },
+      step: 0.01,
+      joystick: 'invertY',
+    },
+    color: '#ff0000',
+  });
+
+  const { scale } = useControls('Cube', {
+    scale: {
+      value: { x: 1, y: 1, z: 1 },
+      step: 0.01,
+    },
+  });
 
   return (
     <Fragment>
@@ -25,7 +42,11 @@ const Experience = () => {
         lineWidth={3}
         scale={0.5}
       >
-        <mesh ref={cubeRef} position={[2, 0, 0]}>
+        <mesh
+          ref={cubeRef}
+          position={[2, 0, 0]}
+          scale={[scale.x, scale.y, scale.z]}
+        >
           <boxGeometry />
           <meshStandardMaterial color="mediumpurple" />
         </mesh>
@@ -37,9 +58,9 @@ const Experience = () => {
         lineWidth={3}
         scale={0.5}
       >
-        <mesh ref={sphereRef} position={[-2, 0, 0]}>
+        <mesh ref={sphereRef} position={[position.x, position.y, position.z]}>
           <sphereGeometry />
-          <meshStandardMaterial color="orange" />
+          <meshStandardMaterial color={color} />
           <Html
             position={[1, 1, 0]}
             wrapperClass="text"
