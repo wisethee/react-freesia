@@ -1,17 +1,36 @@
 import { Fragment, useRef } from 'react';
-import { OrbitControls, useHelper } from '@react-three/drei';
-import { DirectionalLight, Mesh } from 'three';
+import { OrbitControls, Stage } from '@react-three/drei';
+import { Mesh } from 'three';
 import { Perf } from 'r3f-perf';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { useControls } from 'leva';
 
 const Experience = () => {
   const cubeRef = useRef<Mesh | null>(null);
   const sphereRef = useRef<Mesh | null>(null);
 
-  const directionalLightRef = useRef<DirectionalLight | null>(null);
+  const { opacity, blur } = useControls('Contact Shadows', {
+    opacity: {
+      value: 0.3,
+      min: 0,
+      max: 1,
+      step: 0.01,
+    },
+    blur: {
+      value: 0.6,
+      min: 0,
+      max: 3,
+      step: 0.01,
+    },
+  });
 
-  useHelper(directionalLightRef, THREE.DirectionalLightHelper, 0.5);
+  const { envMapIntensity } = useControls('Environment', {
+    envMapIntensity: {
+      value: 3.6,
+      min: 0,
+      max: 12,
+    },
+  });
 
   useFrame((state, delta) => {
     if (!cubeRef.current) throw Error('cubeRef not assigned');
@@ -22,28 +41,35 @@ const Experience = () => {
     <Fragment>
       <Perf position="bottom-right" />
       <OrbitControls makeDefault />
-      <directionalLight
-        ref={directionalLightRef}
-        position={[1, 2, 3]}
-        intensity={1.5}
-      />
-      <ambientLight intensity={0.3} />
-      <color args={['ivory']} attach="background" />
 
-      <mesh position-x={-2}>
-        <sphereGeometry />
-        <meshStandardMaterial color="orange" />
-      </mesh>
+      <Stage
+        contactShadow={{ blur: blur, opacity: opacity }}
+        environment="sunset"
+        preset="rembrandt"
+        intensity={0.5}
+      >
+        <mesh castShadow position-y={1} position-x={-2}>
+          <sphereGeometry />
+          <meshStandardMaterial
+            envMapIntensity={envMapIntensity}
+            color="orange"
+          />
+        </mesh>
 
-      <mesh ref={cubeRef} position-x={2} scale={1.5}>
-        <boxGeometry />
-        <meshStandardMaterial color="mediumpurple" />
-      </mesh>
-
-      <mesh position-y={-1} rotation-x={-Math.PI * 0.5} scale={10}>
-        <planeGeometry />
-        <meshStandardMaterial color="greenyellow" />
-      </mesh>
+        <mesh
+          ref={cubeRef}
+          castShadow
+          position-y={1}
+          position-x={2}
+          scale={1.5}
+        >
+          <boxGeometry />
+          <meshStandardMaterial
+            color="mediumpurple"
+            envMapIntensity={envMapIntensity}
+          />
+        </mesh>
+      </Stage>
     </Fragment>
   );
 };
