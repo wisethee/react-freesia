@@ -1,5 +1,10 @@
-import { Fragment } from 'react';
-import { OrbitControls } from '@react-three/drei';
+import { Fragment, Suspense } from 'react';
+import { OrbitControls, Html } from '@react-three/drei';
+import Model from '../model/model.component';
+
+const Loading = () => {
+  return <Html>Loading...</Html>;
+};
 
 const Experience = () => {
   return (
@@ -9,15 +14,9 @@ const Experience = () => {
       <directionalLight castShadow position={[1, 2, 3]} intensity={1.5} />
       <ambientLight intensity={0.5} />
 
-      <mesh castShadow position-x={-2}>
-        <sphereGeometry />
-        <meshStandardMaterial color="orange" />
-      </mesh>
-
-      <mesh castShadow position-x={2} scale={1.5}>
-        <boxGeometry />
-        <meshStandardMaterial color="mediumpurple" />
-      </mesh>
+      <Suspense fallback={<Loading />}>
+        <Model />
+      </Suspense>
 
       <mesh
         receiveShadow
