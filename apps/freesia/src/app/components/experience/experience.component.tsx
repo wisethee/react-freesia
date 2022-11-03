@@ -1,6 +1,5 @@
 import { Fragment, Suspense } from 'react';
-import { OrbitControls, Html } from '@react-three/drei';
-import Model from '../model/model.component';
+import { OrbitControls, Html, Stage, Backdrop } from '@react-three/drei';
 import Fox from '../fox/fox.component';
 
 const Loading = () => {
@@ -20,23 +19,17 @@ const Experience = () => {
       />
       <ambientLight intensity={0.5} />
 
-      {/* <Suspense fallback={<Loading />}>
-        <Model scale={0.36} />
-      </Suspense> */}
-
-      <Suspense fallback={<Loading />}>
-        <Fox />
-      </Suspense>
-
-      <mesh
-        receiveShadow
-        position-y={-1}
-        rotation-x={-Math.PI * 0.5}
-        scale={10}
+      <Stage
+        shadows
+        adjustCamera
+        intensity={0.3}
+        environment="forest"
+        preset="soft"
       >
-        <planeGeometry />
-        <meshStandardMaterial color="greenyellow" />
-      </mesh>
+        <Suspense fallback={<Loading />}>
+          <Fox />
+        </Suspense>
+      </Stage>
     </Fragment>
   );
 };
