@@ -6,10 +6,10 @@ import Experience from './components/experience/experience.component';
 const App = () => {
   return (
     <Fragment>
-      <Leva collapsed />
+      <Leva collapsed={false} />
 
       <Canvas
-        shadows={false}
+        shadows={true}
         camera={{
           fov: 60,
           near: 0.1,
